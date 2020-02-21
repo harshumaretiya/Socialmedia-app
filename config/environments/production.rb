@@ -86,20 +86,15 @@ Rails.application.configure do
   # and use secure cookies.
   config.force_ssl = true
 
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :smtp
-  host = '<your heroku app>.herokuapp.com'
-  config.action_mailer.default_url_options = { host: host }
-  ActionMailer::Base.smtp_settings = {
-    :address        => 'smtp.sendgrid.net',
-    :port           => '587',
-    :authentication => :plain,
-    :user_name      => ENV['SENDGRID_USERNAME'],
-    :password       => ENV['SENDGRID_PASSWORD'],
-    :domain         => 'heroku.com',
-    :enable_starttls_auto => true
-  }
+ 
 
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :test
+  # Don't use this literally; use your local dev host instead
+  # Use this on the cloud IDE.
+  host = 'ror-twitter-app.herokuapp.com'
+  config.action_mailer.default_url_options = { host: host, protocol: 'https' }
+  # Use this if developing on localhost.
 
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
